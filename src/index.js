@@ -1,6 +1,7 @@
 
 import dotenv from "dotenv" 
 dotenv.config();
+import { clerkMiddleware } from '@clerk/express'
 import express from "express"
 import userRoutes from "./routes/user.route.js"
 import adminRoutes from "./routes/admin.route.js"
