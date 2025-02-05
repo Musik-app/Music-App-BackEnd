@@ -1,3 +1,4 @@
+
 import dotenv from "dotenv" // dotenv
 dotenv.config();// Load environment variables
 
@@ -17,6 +18,8 @@ import path from "path";// Path module
 const app = express();// Create an instance of express
 const PORT = process.env.PORT; // Port number from environment variables
 const __dirname = path.resolve();// Resolve the absolute path of the current directory
+
+
 
 
 
@@ -47,3 +50,4 @@ app.listen(PORT, () => {
     console.log("✅ Server is running on port " + PORT + " 🥰"); // Log server start message
     connectDB(); // Connect to the database
 });
+
