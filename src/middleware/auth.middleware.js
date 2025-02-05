@@ -1,31 +1,35 @@
-import { clerkClient } from "@clerk/express";
+import { clerkClient } from "@clerk/express"; // Import Clerk client for user authentication
 
-
-export const protectRoute = async(req, res, next) => {
-    // Check if the user is authenticated by verifying the presence of userId
-    if(!req.auth.userId){
-        // If userId is not present, respond with 401 Unauthorized status
-        res.status(401).json({message:"Unauthorized - you must be logged in"});
-        return; // Exit the function to prevent further execution
+// Middleware to protect a route by checking if the user is authenticated
+export const protectRoute = async (req, res, next) => {
+    // Check if the user is authenticated by verifying the presence of userId in the request object
+    if (!req.auth?.userId) {
+        // If userId is not found, return a 401 Unauthorized error
+        return res.status(401).json({ message: "Unauthorized - You must be logged in to access this resource." });
     }
     // If the user is authenticated, proceed to the next middleware or route handler
     next();
 };
 
-export const requireAdmin = async(req, res, next) => {
+// Middleware to require admin privileges to access certain routes
+export const requireAdmin = async (req, res, next) => {
     try {
-        // Get the current user from Clerk
-        const currentUser = await clerkClient.users.getUser(req.auth.userId);
+        // Get the current user from Clerk using the userId present in the request
+        const currentUser = await clerkClient.users.getUser(req.auth?.userId);
 
-        // Check if the user is an admin by comparing the email to the environment variable
+        // Check if the current user's email matches the admin email stored in the environment variable
         const isAdmin = process.env.ADMIN_EMAIL === currentUser.primaryEmailAddress?.emailAddress;
 
-        // If the user is not an admin, return 403 Forbidden
+        // If the user is not an admin, return a 403 Forbidden error
         if (!isAdmin) {
-            return res.status(403).json({ message: "Unauthorized - you must be an admin" });
+            return res.status(403).json({ message: "Forbidden - You must be an admin to access this resource." });
         }
 
-        // If the user is an admin, call the next middleware
+        // If the user is an admin, proceed to the next middleware or route handler
         next();
-    }catch (error) {}
-}
+    } catch (error) {
+        console.error("Error in requireAdmin middleware:", error); // Log the error for debugging purposes
+        // Return a 500 Internal Server Error in case of an exception
+        res.status(500).json({ message: "Internal Server Error - Please try again later." });
+    }
+};

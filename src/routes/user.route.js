@@ -1,17 +1,16 @@
-import { Router } from "express";
+import { Router } from "express";// Import Router to create modular route handlers
 
 // create a new express router
 
 const router = Router();
 
-// handle GET requests to the root of this router
+// Handle GET requests to the '/api/users' endpoint
 router.get('/',(req,res)=>{
-    // get the authenticated user's ID from the request object
     req.auth.userId;
-    res.send('user route with GET method');
-    // send a response with the text 'user route with GET method'
+    res.send('user route with GET method');// Send a JSON response
 });
 
 
-// export the router
+
+// Export the router to be used in the main server file
 export default router;

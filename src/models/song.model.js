@@ -28,4 +28,4 @@ const songSchma = new mongoose.Schema({
 },
 {timestamps:true}
 ); 
-export const song = mongoose.model('song',songSchma);
+export const Song = mongoose.model('Song',songSchma);
