@@ -10,7 +10,7 @@ export const protectRoute = async (req, res, next) => {
     // If the user is authenticated, proceed to the next middleware or route handler
     next();
 };
-
+export default protectRoute;
 // Middleware to require admin privileges to access certain routes
 export const requireAdmin = async (req, res, next) => {
     try {

@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import { user } from "../models/user.model.js";
 export const getAllUsers = async (req, res, next) => {
   try {
     const currentUserId = req.auth.userId;

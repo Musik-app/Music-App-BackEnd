@@ -1,12 +1,12 @@
 
 import { Router } from "express";// Import Router to create modular route handlers
-import { protectroute } from "../middleware/auth.middleware.js";
+import { protectRoute } from "../middleware/auth.middleware.js";
 import { getAllUsers } from "../controller/user.controller.js";
 
 // create a new express router
 const router = Router();
 // Handle GET requests to the '/api/users' endpoint
-router.get("/", protectroute, getAllUsers);
+router.get("/", protectRoute, getAllUsers);
 // todo: getMassages
 
 
