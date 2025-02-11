@@ -1,15 +1,17 @@
-import { Router } from "express"; // Import the express Router
-import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js"; // Import authentication (protectRoute) and authorization (requireAdmin) middlewares
-import { createSong, deleteSong } from "../controller/admin.controller.js"; // Import controller functions for handling song creation and deletion
-
+import { Router } from "express";
+import { checkAdmin, createAlbum, createSong, deleteAlbum, deleteSong } from "../controller/admin.controller.js";
+import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-// Protected route: Only authenticated admins can create a new song
-router.post('/songs', protectRoute, requireAdmin, createSong);
+router.use(protectRoute, requireAdmin);
 
-// Protected route: Only authenticated admins can delete a song by ID
-router.delete('/songs/:id', protectRoute, requireAdmin, deleteSong);
+router.get("/check", checkAdmin);
 
-// Export the admin song management router
-export default router; 
+router.post("/songs", createSong);
+router.delete("/songs/:id", deleteSong);
+
+router.post("/albums", createAlbum);
+router.delete("/albums/:id", deleteAlbum);
+
+export default router;

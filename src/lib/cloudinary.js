@@ -15,6 +15,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET, // API secret
 });
 
-console.log("✅ Cloudinary configured successfully."); // Log success message
+console.log("✅ Cloudinary configured successfully. 😍"); // Log success message
 
 export default cloudinary; // Export Cloudinary
