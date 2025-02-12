@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
 import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 import path from "path";
@@ -18,6 +17,8 @@ import authRoutes from "./routes/auth.route.js";
 import songRoutes from "./routes/song.route.js";
 import albumRoutes from "./routes/album.route.js";
 import statRoutes from "./routes/stat.route.js";
+
+dotenv.config();
 
 const __dirname = path.resolve();
 const app = express();
@@ -82,6 +83,6 @@ app.use((err, req, res, next) => {
 });
 
 httpServer.listen(PORT, () => {
-	console.log("✅ Server is running on port " + PORT + " 😍");
+	console.log("Server is running on port " + PORT);
 	connectDB();
 });
